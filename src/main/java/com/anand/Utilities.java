@@ -2,6 +2,8 @@ package com.anand;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.ServerSocket;
 
 /**
  * Created by anand.ranganathan on 9/20/15.
@@ -47,4 +49,20 @@ public class Utilities {
             file.delete();
         }
     }
+
+
+    public static int assignPort( ) throws IllegalStateException, IOException {
+
+        try {
+            ServerSocket s = new ServerSocket(0);
+           return  s.getLocalPort();
+        }catch(IllegalStateException ioe){
+            throw new IllegalStateException(" couldn't get the available port:"+ ioe.getMessage(),ioe);
+        }catch(IOException ioe){
+            throw new IOException(" couldn't get the available port:"+ ioe.getMessage(),ioe);
+
+        }
+
+     }
+
 }

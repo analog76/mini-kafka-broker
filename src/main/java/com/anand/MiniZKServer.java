@@ -16,7 +16,6 @@ import org.apache.zookeeper.server.quorum.QuorumPeerConfig;
  */
 public class MiniZKServer implements ZookeeperProperties {
 
-    ZooKeeperServerMain zooKeeperServer;
     private ServerCnxnFactory factory;
     File snapshotDir  = null;
     File logDir = null;
@@ -24,35 +23,7 @@ public class MiniZKServer implements ZookeeperProperties {
 
 
 
-    public void startZookeeper(Properties zkProperties) throws IOException{
 
-
-        QuorumPeerConfig quorumConfiguration = new QuorumPeerConfig();
-        try {
-            quorumConfiguration.parseProperties(zkProperties);
-        } catch(Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        zooKeeperServer = new ZooKeeperServerMain();
-        final ServerConfig configuration = new ServerConfig();
-        configuration.readFrom(quorumConfiguration);
-
-
-
-
-
-        new Thread() {
-            public void run() {
-                try {
-                    zooKeeperServer.runFromConfig(configuration);
-                } catch (IOException e) {
-                    System.out.println("ZooKeeper Failed");
-                    e.printStackTrace(System.err);
-                }
-            }
-        }.start();
-    }
 
 
     public int getPort(){
